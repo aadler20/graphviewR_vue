@@ -1,7 +1,7 @@
 # graphviewR_vue
 
 Front-End code used in **Introduction to Data Technologies** course for viewing dependencies 
-of R packages and functions in interactive graph using  [ant-design-pro-vue](https://pro.antdv.com/) 
+of R packages and functions in interactive graph with [ant-design-pro-vue](https://pro.antdv.com/) 
 and [Antv G6](https://g6.antv.vision/).
 
 ### Env and dependencies
