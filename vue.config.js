@@ -122,7 +122,7 @@ const vueConfig = {
     historyApiFallback: true, // vue-router works if backend not match
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     proxy: {
-      '/graphviewR': { // api
+      '/api': { // api
         target: 'http://localhost:6090'
         // ws: false,
         // changeOrigin: true

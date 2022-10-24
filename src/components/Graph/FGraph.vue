@@ -34,8 +34,8 @@ export default {
   name: 'FGraph',
   props: {
     data: {
-      default: null,
-      type: Object
+      type: Object,
+      default: null
     },
     title: {
       type: String,
@@ -56,9 +56,9 @@ export default {
   },
   watch: {
     data: function (val) {
-      if (val && val.packages.length > 0) {
-        val.nodes.length > 0 ? this.showGraph() : this.showTips()
-      }
+      val && val.nodes.length > 0 ? this.showGraph() : this.showTips()
+    },
+    loading: function (value) {
     }
   },
   mounted () {
@@ -69,9 +69,12 @@ export default {
     descriptionDiv.style.color = '#2E8B57'
     descriptionDiv.innerHTML = `Loading data now, please wait just a moment ...`
     container.appendChild(descriptionDiv)
-    const nodeLen = this.data.nodes.length
-    if (nodeLen > 0) {
-      this.showGraph()
+    console.info('this.data in FGraph', this.data)
+    if (this.data) {
+      const nodeLen = this.data.nodes.length
+      if (nodeLen > 0) {
+        this.showGraph()
+      }
     }
   },
   methods: {
@@ -82,19 +85,26 @@ export default {
     },
     showTips () {
       const container = this.$refs.container
-      while (container.firstChild) {
-        container.firstChild.remove()
+      if (container.childNodes[1]) {
+        container.removeChild(container.childNodes[1])
       }
-      const thisPackage = this.data.packages[0]
+      if (container.childNodes[0]) {
+        container.removeChild(container.childNodes[0])
+      }
       const descriptionDiv = document.createElement('div')
       descriptionDiv.style.fontWeight = 'bold'
-      descriptionDiv.innerHTML = `No Function is defined in ${thisPackage} Package. It might contain various datasets.`
+      // descriptionDiv.style.fontSize = '1.2rem'
+      // descriptionDiv.style.color = '#2E8B57'
+      descriptionDiv.innerHTML = 'Please select data for Graph ...'
       container.appendChild(descriptionDiv)
     },
     showGraph () {
       const container = this.$refs.container
-      while (container.firstChild) {
-        container.firstChild.remove()
+      if (container.childNodes[1]) {
+        container.removeChild(container.childNodes[1])
+      }
+      if (container.childNodes[0]) {
+        container.removeChild(container.childNodes[0])
       }
       const descriptionDiv = document.createElement('div')
       descriptionDiv.style.fontWeight = 'bold'

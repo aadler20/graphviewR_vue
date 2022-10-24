@@ -44,7 +44,6 @@
                 <tag-select
                   v-if="!!priorities && priorities.length > 0"
                   :hideCheckAll="hideCheckAll"
-                  :fixed="fixedPrior"
                   @change="handlePriorityChange">
                   <tag-select-option
                     v-for="(item, index) in priorities"

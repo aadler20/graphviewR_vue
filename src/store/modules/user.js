@@ -38,9 +38,10 @@ const user = {
       console.info('login userInfo', userInfo)
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
-          storage.set(ACCESS_TOKEN, response.result.token, 7 * 24 * 60 * 60 * 1000)
-          console.info('login token', response.result.token)
-          commit('SET_TOKEN', response.result.token)
+          const result = response.result
+          storage.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
+          console.info('login token', result.token)
+          commit('SET_TOKEN', result.token)
           resolve()
         }).catch(error => {
           reject(error)
@@ -52,7 +53,7 @@ const user = {
     GetInfo ({ commit, dispatch }) {
       return new Promise((resolve, reject) => {
         getInfo().then(response => {
-          console.info('response.result in GetInfo', response.result)
+          console.info('response.result in GetInfo', response)
           const result = response.result[[0]]
           setRole(result)
           if (result.role) {

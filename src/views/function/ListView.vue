@@ -1,7 +1,7 @@
 <template>
   <div>
     <a-card :loading="loading" :bordered="false" :style="{ marginBottom: '24px' }">
-      <r-page :data="htmlData" :width="width" :height="height" :title="title"/>
+      <r-page :data="htmlData"/>
     </a-card>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
         functionName: this.functionName }).then(res => {
         this.htmlData = res.htmlData
         this.demoData = res.demoData
-        console.info('demoData', this.demoData)
+        // console.info('demoData', this.demoData)
         this.loading = !this.loading
       }).catch(err => {
         console.log('loadFunctionInfo.err', err)
@@ -55,7 +55,7 @@ export default {
     },
     getList () {
       this.$http.get('/list/article').then(res => {
-        console.log('res', res)
+        // console.log('res', res)
         this.data = res.result
         this.loading = false
       })

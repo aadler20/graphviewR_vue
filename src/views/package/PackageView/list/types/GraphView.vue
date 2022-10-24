@@ -1,5 +1,5 @@
 <template>
-  <p-graph :loading="loading" :data="graphData" :width="width" :height="height" :title="title"/>
+  <p-graph :loading="loadingLocal" :data="graphData" :width="width" :height="height"/>
 </template>
 
 <script>
@@ -13,8 +13,10 @@ export default {
   },
   props: {
     data: {
-      type: Object,
-      default: null
+      type: Array,
+      default: () => {
+        return []
+      }
     },
     names: {
       type: Array,
@@ -28,13 +30,17 @@ export default {
   watch: {
     data: function (value) {
       this.loadPackageGraph()
+    },
+    loading: function (value) {
+      this.loadingLocal = value
     }
   },
   data () {
     return {
       width: 1000,
       height: 600,
-      graphData: null
+      graphData: null,
+      loadingLocal: this.loading
     }
   },
   created () {
@@ -42,7 +48,7 @@ export default {
   methods: {
     loadPackageGraph () {
       return new Promise((resolve, reject) => {
-        this.loading = true
+        this.loadingLocal = true
         const param = { localPackages: this.data, colNames: this.names }
         getPackageGraph(param).then(res => {
           this.graphData = res || { nodes: [] }
@@ -52,7 +58,7 @@ export default {
           this.$message.error('Fail to load package graph!')
           reject(err)
         }).finally(() => {
-          this.loading = false
+          this.loadingLocal = false
         })
       })
     }

@@ -87,6 +87,7 @@ export function getPackageInfo (parameter) {
 }
 
 export function getFunctionGraph (parameter) {
+  console.info('parameter in api getFunctionGraph', parameter)
   return request({
     url: packageApi.FunctionGraph,
     method: 'get',

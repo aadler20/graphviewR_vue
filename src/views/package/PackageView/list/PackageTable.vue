@@ -35,7 +35,6 @@
                 <tag-select
                   v-if="!!priorities && priorities.length > 0"
                   :hideCheckAll="hideCheckAll"
-                  :fixed="fixedPrior"
                   @change="handlePriorityChange">
                   <tag-select-option
                     v-for="(item, index) in priorities"
@@ -83,7 +82,7 @@
 import GraphView from './types/GraphView.vue'
 import TableView from './types/TableView.vue'
 import { getFirstLetters, getLocalPackages } from '@/api/package'
-import { TagSelect } from '@/components'
+import { StandardFormRow, TagSelect } from '@/components'
 
 const TagSelectOption = TagSelect.Option
 const priorities = [
@@ -109,10 +108,11 @@ export default {
     }
   },
   components: {
-    TagSelect,
-    TagSelectOption,
     GraphView,
-    TableView
+    StandardFormRow,
+    TableView,
+    TagSelect,
+    TagSelectOption
   },
   data () {
     this.priorities = priorities

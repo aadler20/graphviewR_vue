@@ -4,15 +4,15 @@
       <a-card :bordered="false" :title="baseInfo">
         <a-row :gutter="24" type="flex" align="top" >
           <a-col
-              v-for="description in descriptions"
-              :key="description"
-              :xs="9"
-              :sm="7"
-              :md="6"
-              :lg="5"
-              :xl="4"
-              :xxl="3">
-            <div><span><b>{{ description.Name }}:</b> {{ description.Value }}</span></div>
+            v-for="(item, index) in descriptions"
+            :key="index"
+            :xs="9"
+            :sm="7"
+            :md="6"
+            :lg="5"
+            :xl="4"
+            :xxl="3">
+            <div><span><b>{{ item.Name }}:</b> {{ item.Value }}</span></div>
           </a-col>
         </a-row>
       </a-card>
@@ -95,6 +95,7 @@ export default {
       this.descriptions = this.data.descriptions
       this.functionList = this.data.functionList
       const datColumns = Object.keys(this.functionList[[0]])
+      console.info('datColumns in InfoPage', datColumns)
       datColumns.forEach(datColumn => {
         this.tblColumns.push({
           'dataIndex': datColumn,

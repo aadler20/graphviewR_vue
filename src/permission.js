@@ -20,6 +20,7 @@ router.beforeEach((to, from, next) => {
   /* has token */
   if (storage.get(ACCESS_TOKEN)) {
     if (to.path === loginRoutePath) {
+      console.info('ACCESS_TOKEN in permission', storage.get(ACCESS_TOKEN))
       next({ path: defaultRoutePath }) // login then defaultRoutePath
       NProgress.done()
     } else {
@@ -44,6 +45,7 @@ router.beforeEach((to, from, next) => {
               }) */
               // 请求带有 redirect 重定向时，登录自动重定向到该地址
               const redirect = decodeURIComponent(from.query.redirect || to.path)
+              console.info('redirect in permission', redirect)
               if (to.path === redirect) {
                 // set the replace: true so the navigation will not leave a history record
                 next({ ...to, replace: true })

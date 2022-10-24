@@ -12,8 +12,8 @@ export default {
   name: 'RPage',
   props: {
     data: {
-      default: null,
-      type: Array
+      type: String,
+      default: ''
     },
     title: {
       type: String,

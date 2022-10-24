@@ -5,7 +5,7 @@
     :columns="tblColumns"
     :data-source="packageTable"
     :pagination="pagination"
-    :loading="loading"
+    :loading="loadingLocal"
     :customRow="handleClickRow">
     <template slot="Package" slot-scope="text, record">
       <!--<a :title="'help(package = \'' + record.Package + '\')'" @click="() => packageHelp(record.Package)">{{ text }}</a>-->
@@ -30,8 +30,10 @@ export default {
   },
   props: {
     data: {
-      type: Object,
-      default: null
+      type: Array,
+      default: () => {
+        return []
+      }
     },
     names: {
       type: Array,
@@ -45,6 +47,9 @@ export default {
   watch: {
     data: function (value) {
       this.loadPackageTable()
+    },
+    loading: function (value) {
+      this.loadingLocal = value
     }
   },
   data () {
@@ -59,7 +64,8 @@ export default {
       columns: [], // all columns
       tblColumns, // columns in the table
       hover: false,
-      packageIntro: ''
+      packageIntro: '',
+      loadingLocal: this.loading
     }
   },
   computed: {
@@ -83,7 +89,7 @@ export default {
     },
     loadPackageTable () {
       return new Promise((resolve, reject) => {
-          this.loading = true
+          this.loadingLocal = true
           const param = { localPackages: this.data, colNames: this.names }
           getPackageTable(param).then(res => {
             this.packageTable = res.data || []
@@ -93,7 +99,7 @@ export default {
             this.$message.error('Fail to load package table!')
             reject(err)
           }).finally(() => {
-            this.loading = false
+            this.loadingLocal = false
           })
         }
       )

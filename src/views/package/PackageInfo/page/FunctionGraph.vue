@@ -8,7 +8,7 @@
       :sm="24"
       :xs="24">
       <a-card :bordered="false" title="Dependent Packages" class="ant-pro-components-tag-select">
-        <a-form :form="form" layout="inline">
+        <a-form layout="inline">
           <standard-form-row block style="padding-bottom: 11px;">
             <a-form-item>
               <tag-select v-if="!!depPackages && depPackages.length > 0" @change="handleTagSelectChange">
@@ -50,7 +50,7 @@ export default {
     return {
       packageName: null,
       allData: [],
-      graphData: [],
+      graphData: null,
       width: 1000,
       height: 600,
       loading: true,
@@ -70,6 +70,7 @@ export default {
     loadFunctionGraph () {
       return new Promise((resolve, reject) =>
         getFunctionGraph({ packageName: this.packageName }).then(res => {
+          console.info('res from getFunctionGraph', res)
           this.allData = res
           this.pkgNames = res.packages
           this.allData.packages.forEach(pkg => {
